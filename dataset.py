@@ -81,8 +81,8 @@ class FaceLandmarksDataset(Dataset):
                 cropattr={}
                 tempwidth=max(xlist)-min(xlist)
                 tempheight=max(ylist)-min(ylist)
-                cropattr['top']=max(min(ylist)-tempheight*1,0)
-                cropattr['left']=max(min(xlist)-tempwidth*1,0)
+                cropattr['top']=min(ylist)-tempheight*1
+                cropattr['left']=min(xlist)-tempwidth*1
                 cropattr['height']=tempheight*3
                 cropattr['width']=tempwidth*3
                 filepath=os.path.join('./content/wflw/images/', points[-1].strip())
@@ -114,4 +114,14 @@ class FaceLandmarksDataset(Dataset):
 
 
 
-# dataset = FaceLandmarksDataset(Transforms())
+dataset = FaceLandmarksDataset(Transforms())
+
+for i in range(100):
+    image, landmarks = dataset[i]
+    landmarks = (landmarks+0.5)*224
+    plt.figure(figsize=(10, 10))
+
+    plt.imshow(image.numpy().squeeze().transpose(1,2,0));
+
+    plt.scatter(landmarks[:,0], landmarks[:,1], s=8);
+    plt.show()

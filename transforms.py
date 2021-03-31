@@ -59,6 +59,14 @@ class Transforms():
         width = int(crops['width'])
         height = int(crops['height'])
 
+        leftran=random.uniform(0,1)
+        topran=random.uniform(0,1)
+        sizeran=random.uniform(0,1)
+        left=left+leftran*width/3
+        top=top+topran*height/3
+        width=width*(sizeran+2-leftran)/3
+        height=height*(sizeran+2-topran)/3
+
         image = TF.crop(image, top, left, height, width)
         img_shape = np.array(image).shape
         landmarks = torch.tensor(landmarks) - torch.tensor([[left, top]])

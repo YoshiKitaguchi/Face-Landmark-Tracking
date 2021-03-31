@@ -48,7 +48,7 @@ with torch.no_grad():
 
     best_network = Network()
     best_network.cuda()
-    best_network.load_state_dict(torch.load('./content/weights/face_landmarks3.pth')) 
+    best_network.load_state_dict(torch.load('./content/weights/face_landmarks26.pth')) 
     best_network.eval()
     
     
