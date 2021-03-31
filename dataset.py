@@ -49,8 +49,8 @@ class FaceLandmarksDataset(Dataset):
                 cropattr={}
                 tempwidth=max(xlist)-min(xlist)
                 tempheight=max(ylist)-min(ylist)
-                cropattr['top']=max(min(ylist)-tempheight*1,0)
-                cropattr['left']=max(min(xlist)-tempwidth*1,0)
+                cropattr['top']=min(ylist)-tempheight*1
+                cropattr['left']=min(xlist)-tempwidth*1
                 cropattr['height']=tempheight*3
                 cropattr['width']=tempwidth*3
                 filepath=os.path.join('./content/wflw/images/', points[-1].strip())
@@ -102,6 +102,7 @@ class FaceLandmarksDataset(Dataset):
     def __getitem__(self, index):
         # image = cv2.imread(self.image_filenames[index], 0)
         image = cv2.imread(self.image_filenames[index],1)
+        print(self.image_filenames[index])
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         landmarks = self.landmarks[index]
         cropcur=self.crops[index]
